@@ -1,31 +1,51 @@
+
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from "vue";
+import { RouterLink, RouterView } from "vue-router"; // Importer RouterView
+import NavBar from "./components/NavBar.vue";
+import Footer from "./components/Footer.vue"; 
+import HeroHeader from "./components/HeroHeader.vue";
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <NavBar />
+    <router-view /> 
+    <Footer /> <!-- Footer sur toutes les pages -->
   </div>
-  <HelloWorld msg="Noémie" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script>
+</script>
+
+<style>
+
+
+#app {
+  background-color: #314633;
+  min-height: 100vh;
+  width: 100vw; /* pour que ça couvre toute la largeur */
+  display: flex;
+  flex-direction: column;
+  margin : 0;
+  max-width: 100vw; /* Limite la largeur à la largeur de la fenêtre */
+  overflow-x: hidden; /* Empêche le débordement horizontal */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+router-view {
+  flex: 1; /* Prend tout l'espace disponible */
+  margin-bottom :0;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+h1 {
+  text-align: center;
+  margin-top: 200px;
 }
+footer {
+  padding : 0; 
+  width: 100%; /* Assure que le footer prend toute la largeur */
+  margin-top: auto; /* Pousse le footer en bas, s'il n'y a pas assez de contenu */
+} 
 </style>
+
 
