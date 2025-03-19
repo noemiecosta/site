@@ -1,207 +1,170 @@
-<template>
+<template> 
   <div class="Accueil">
-    <HeroHeader 
-      title="Voyaj" 
-      subtitle="Des voyages inoubliables à travers le monde"
-      imageUrl="https://i.pinimg.com/736x/52/5f/da/525fda64eb5438f9e28dd1e357019ebd.jpg" 
-    />
-     <!-- Section Texte -->
-     <div class="text-section">
-      <h2>Partez à l'aventure</h2>
+    <v-parallax src="/image1.jpg">
+      <div>
+        <h1>Voyaj</h1>
+        <h2>Trouve ta prochaine destination !</h2>
+      </div>
+    </v-parallax>
+  </div>
+
+  <div class="intro-container">
+    <div class="intro-text">
+      <h2>Explore le monde sans te ruiner !</h2>
       <p>
-        Découvrez des destinations incroyables à petit budget et explorez le monde sans vous ruiner !
+        Bienvenue sur Voyaj, la plateforme idéale pour tous les voyageurs en quête de bons plans ! 
+        Ici, on te partage les meilleures destinations à petit budget, des astuces pour économiser, 
+        et des bons plans étudiants pour voyager sans te ruiner.
+      </p>
+      <p>
+        Que tu sois un aventurier dans l’âme, un étudiant fauché ou juste curieux de découvrir de nouveaux horizons, 
+        tu trouveras ici des idées de voyages accessibles, des conseils malins et des sites incontournables 
+        pour organiser ton séjour au meilleur prix.
       </p>
     </div>
-    
-    <h2> Découvrez nos destinations phares ! </h2>
-    <!-- Carrousel d'images -->
-    <ImageCarousel :images="images" />
 
-    <!-- Le reste du contenu de votre page d'accueil 
-    <div class="container">
-      <div class="image-container">
-        <img src="https://i.pinimg.com/736x/52/5f/da/525fda64eb5438f9e28dd1e357019ebd.jpg" />
-      </div>
-      <div class="text-container">
-        <h1>Explore le monde</h1>
-        <p>
-          Découvrez notre contenu exclusif sur les plus beaux endroits à visiter.
-          Profitez d'une expérience unique avec des conseils de voyage adaptés à vous.
-        </p>
-      </div>
+    <div class="intro-text right-block"> 
+    <h3>Ce que tu peux retrouver sur notre site :</h3>
+    <ul>
+      <li>Ta prochaine destination à prix mini</li>
+      <li>Des astuces pour économiser sur tes voyages</li>
+      <li>Des bons plans pour étudiants et petits budgets</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Phrase finale pleine largeur -->
+<p class="full-width-text">
+  <strong>Alors, prêt à partir à l’aventure ? Explore nos catégories et déniche le voyage de tes rêves sans exploser ton budget !</strong>
+</p>
+
+  <h2>Découvrez nos destinations phares !</h2>
+
+  <!-- Carrousel d'images -->
+  <div class="carousel-container">
+  <ImageCarousel />
+</div>
+
+<div class="categorie-container">
+  <div class= "categorie-text"> 
+      <h2>Découvre nos catégories et trouve ton voyage idéal !</h2>
+      <p>
+        Tu rêves d’évasion, d’aventure ou d’en prendre plein la vue ? On a pensé à tout ! <br>
+        Que tu sois un passionné d’expériences uniques, un adepte des escapades express ou un aventurier dans l’âme, nos catégories sont faites pour toi.
+      </p>
+      <br>
+      <BlocksComponent/>
+      <p>
+Alors, quelle sera ta prochaine destination ? Clique sur la catégorie qui te fait vibrer et commence à planifier ton prochain voyage ! ✈️ <br>
+      </p>
     </div>
-    <section class="contact">
-      <h2>Contact</h2>
-      <p>Des questions ? Contacte-nous, on adore discuter ! 📩</p>
-      <button class="contact-btn">Nous écrire</button>
-    </section> -->
-  </div> 
+  </div>
+
+
+  <BlocBonPlan/>
+
 </template>
 
 <script>
-// Corrigez le chemin d'importation
-import HeroHeader from '../components/HeroHeader.vue'
-import ImageCarousel from '../components/ImageCarousel.vue'
+import BlocBonPlan from '../components/BlocBonPlan.vue';
+import BlocksComponent from '../components/BlocksComponent.vue';
+import ImageCarousel from '../components/ImageCarousel.vue';
 
 export default {
   name: 'HomePage',
   components: {
-    HeroHeader,
-    ImageCarousel
-  },
-  data() {
-    return {
-      images: [
-        { src: "https://i.pinimg.com/736x/51/08/41/5108418fdc202adc61a2e38ed6ae97ab.jpg", alt: "Plage paradisiaque", caption: "Détente au soleil", link: "/destinations" },
-        { src: "https://i.pinimg.com/474x/db/2c/bc/db2cbc5e4002090961b82cd22a61cdcc.jpg", alt: "Montagne", caption: "Randonnée et nature", link: "/nature" },
-        { src: "https://i.pinimg.com/736x/52/5f/da/525fda64eb5438f9e28dd1e357019ebd.jpg", alt: "Aventure urbaine", caption: "Découverte des villes", link: "/city" }
-      ]
-    };
-  },
-  mounted() {
-    console.log("Images du carrousel : ", this.carouselImages);
+    ImageCarousel,
+    BlocksComponent,
+    BlocBonPlan
   }
 }
 </script>
 
 <style scoped>
-h1 {
-  text-align: center;
-}
-
-.container {
-  display: flex; /* Active Flexbox */
+/* Section de présentation */
+.categorie-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
   align-items: center; /* Centre verticalement */
-  justify-content: space-between; /* Espacement max entre les éléments */
-  width: 80%; /* Largeur max du contenu */
-  margin: auto; /* Centre sur la page */
-  padding: 10px;
+  text-align: center; /* Centre le texte */
+  min-height: 50vh; /* Ajuste la hauteur pour bien le centrer */
+  padding: 10px; /* Ajoute de l’espace autour */
 }
 
-.image-container {
-  flex: 0.8; /* Prend 50% de la largeur */
-}
-
-.image-container img {
-  width: 100%; /* Image prend toute la largeur de son conteneur */
-  border-radius: 10px; /* Coins arrondis pour un style propre */
-}
-
-.text-container {
-  flex: 1; /* Prend 50% de la largeur */
-  padding: 20px;
-}
-
-.contact {
-  text-align: center;
-  padding: 2rem;
-}
-
-h2 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-p {
-  color: #333;
-}
-
-.contact-btn {
-  background-color: #4CAF50;
+.categorie-text {
+  max-width: 1200px; /* Limite la largeur pour éviter un texte trop étalé */
   color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 15px;
+  line-height: 2;
 }
 
-.contact-btn:hover {
-  background-color: #45a049;
+.intro-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 10%;
 }
-</style>
 
-<!-- 
- <template>
-  <div class="Accueil">
-    
-      title="Découvrez des destinations extraordinaires" 
-      subtitle="Des voyages inoubliables à travers le monde"
-      imageUrl="https://i.pinimg.com/736x/51/08/41/5108418fdc202adc61a2e38ed6ae97ab.jpg" 
-    />
-    
- Le reste du contenu de votre page d'accueil
-  </div>
-</template>
-
-<script>
-import ImageArrPlan from '../components/ImageArrPlan.vue'
-
-export default {
-  name: 'HomePage',
-  components: {
-    ImageArrPlan
-  }
-}
-</script>
-<template>
-  <div class="container">
-    <div class="image-container">
-      <img
-        src="https://i.pinimg.com/474x/db/2c/bc/db2cbc5e4002090961b82cd22a61cdcc.jpg"
-      />
-    </div>
-
-    <div class="text-container">
-      <h1>Explore le monde</h1>
-      <p>
-        Découvrez notre contenu exclusif sur les plus beaux endroits à visiter.
-        Profitez d'une expérience unique avec des conseils de voyage adaptés à vous.
-      </p>
-    </div>
-  </div>
-  <section class="contact">
-      <h2>Contact</h2>
-      <p>Des questions ? Contacte-nous, on adore discuter ! 📩</p>
-      <button class="contact-btn">Nous écrire</button>
-    </section>
-</template>
--->
-<style scoped>
-h1 {
+.intro-text {
+  width: 53%;
+  color: white;
+  justify-content: center;
   text-align: center;
 }
 
-.container {
-  display: flex; /* Active Flexbox */
-  align-items: center; /* Centre verticalement */
-  justify-content: space-between; /* Espacement max entre les éléments */
-  width: 80%; /* Largeur max du contenu */
-  margin: auto; /* Centre sur la page */
-  padding: 10px;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.image-container {
-  flex: 0.8; /* Prend 50% de la largeur */
+li {
+  margin-bottom: 10px;
+  line-height: 20px;
 }
 
-.image-container img {
-  width: 100%; /* Image prend toute la largeur de son conteneur */
-  border-radius: 10px; /* Coins arrondis pour un style propre */
-  
-}
-
-.text-container {
-  flex: 1; /* Prend 50% de la largeur */
-  padding: 20px;
+/* Titres et texte */
+h1, h2 {
+  text-align: center;
+  color: white;
+  font-family: 'Goldman';
+  font-size: 100px;
 }
 
 h2 {
-  margin-bottom: 10px;
-  color : #fff;
+  font-size: 36px;
+  margin-bottom: 15px;
 }
 
 p {
-  color : #fff; 
+  font-size: 16px;
+  line-height: 1.5;
 }
+
+/* Phrase finale sur toute la largeur */
+.full-width-text {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px;
+  width: 100%;
+  color: white;
+}
+
+/* Bloc de droite avec bordure et couleur */
+.intro-text.right-block {
+  width: 42%;
+  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.5); /* Bordure blanche semi-transparente */
+  background-color: rgba(255, 255, 255, 0.1); /* Fond léger qui s’adapte */
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+.carousel-container {
+  margin-bottom: 40px; /* Ajuste la valeur selon l'espace que tu veux */
+}
+
+h3 {
+  font-size : 22px;
+  text-decoration: underline;
+}
+
 </style>

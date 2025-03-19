@@ -1,98 +1,117 @@
-<template>
-  <div class="carousel">
-    <div class="carousel-wrapper" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-      <div class="carousel-item" v-for="(image, index) in images" :key="index">
-        <img :src="image.src" :alt="image.alt" />
-      </div>
-    </div>
+<template> 
+  <v-app>
+    <v-container fluid class="carousel-container">
+      <v-carousel
+        cycle
+        height="100vh"
+        hide-delimiters
+        show-arrows="hover"
+      >
+        <v-carousel-item 
+          src="/reveamericain.jpg" 
+          cover
+          @click="goToDestinations"
+        >
+          <div class="overlay">
+            <h2>L'Amérique ?</h2>
+            <p>Parfait pour vivre le rêve amériquain </p>
+          </div>
+        </v-carousel-item>
 
-    <!-- Boutons de navigation -->
-    <button class="prev" @click="prevSlide">❮</button>
-    <button class="next" @click="nextSlide">❯</button>
-  </div>
-</template>
+        <v-carousel-item 
+          src="/corail.jpg" 
+          cover
+          @click="goToDestinations"
+        >
+          <div class="overlay">
+            <h2>L'Océanie ? </h2>
+            <p>Un havre de paix avec ses plages paradisiaques, ses récifs coralliens et sa nature préservée</p>
+          </div>
+        </v-carousel-item>
 
-<script setup>
-import { ref } from "vue";
+        <v-carousel-item 
+          src="/france.jpg" 
+          cover
+          @click="goToDestinations"
+        >
+          <div class="overlay">
+            <h2>L'Europe ?</h2>
+            <p>Il vous reste encore pleins d'endroits emblématiques à decouvrir </p>
+          </div>
+        </v-carousel-item>
 
-const props = defineProps({
-  images: {
-    type: Array,
-    required: true,
-  },
-});
+        <v-carousel-item 
+          src="/afrique2.jpg" 
+          cover
+          @click="goToDestinations"
+        >
+          <div class="overlay">
+            <h2>L'Afrique ?</h2>
+            <p>Pour découvrir des cultures uniques</p>
+          </div>
+        </v-carousel-item>
 
-const currentIndex = ref(0);
+        <v-carousel-item 
+          src="/asie.jpg" 
+          cover
+          @click="goToDestinations"
+        >
+          <div class="overlay">
+            <h2>L'Asie ?</h2>
+            <p>Pour vous en prendre pleins les yeux </p>
+          </div>
+        </v-carousel-item>
+      </v-carousel>
+    </v-container>
+  </v-app>
+</template>  
 
-const nextSlide = () => {
-  currentIndex.value = (currentIndex.value + 1) % props.images.length;
-};
-
-const prevSlide = () => {
-  currentIndex.value =
-    (currentIndex.value - 1 + props.images.length) % props.images.length;
+<script>
+export default {
+  methods: {
+    goToDestinations() {
+      this.$router.push("/Destinations");
+    }
+  }
 };
 </script>
 
+
 <style scoped>
-/* Conteneur principal du carrousel */
-.carousel {
-  position: relative;
-  width: 100vw; /* Prend toute la largeur de l'écran */
-  height: 100vh; /* Prend toute la hauteur de l'écran */
+.v-carousel {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100%;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-
-/* Wrapper qui contient toutes les images */
-.carousel-wrapper {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-  height: 100%;
-}
-
-/* Style de chaque image */
-.carousel-item {
-  min-width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-item img {
-  width: 100%;
-  height: 70vh;
-  object-fit: cover; /* L'image remplit bien l'écran sans être déformée */
-}
-
-/* Boutons de navigation */
-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 15px;
+/* Effet au survol */
+.v-carousel-item {
   cursor: pointer;
-  font-size: 2rem;
-  z-index: 10;
-  transition: 0.3s;
+  transition: transform 0.3s ease-in-out;
+  padding : 0px; 
 }
 
-button:hover {
-  background: rgba(0, 0, 0, 0.8);
+.v-carousel-item:hover {
+  transform: scale(1.05); /* Agrandit légèrement */
 }
 
-.prev {
-  left: 20px;
+/* Effet de surlignage du texte */
+.overlay {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  padding : 0px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+  align-items: center;
 }
 
-.next {
-  right: 20px;
+.v-carousel-item:hover .overlay {
+  background: rgba(0, 0, 0, 0.8); /* Fait ressortir au survol */
 }
 </style>
+
+

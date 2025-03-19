@@ -1,86 +1,234 @@
 <template>
-<section>
-  <h2>💡 Astuces pour Économiser en Voyage</h2>
-  <ul class="list-disc list-inside space-y-2">
-    <li><strong>Réserver à l’Avance (ou à la Dernière Minute)</strong> : Les vols et hébergements sont souvent moins chers si réservés plusieurs mois à l’avance ou en dernière minute.</li>
-    <li><strong>Voyager en Basse Saison</strong> : Profitez de prix réduits et d’un environnement plus calme.</li>
-    <li><strong>Comparer les Moyens de Transport</strong> : Bus, trains, covoiturage ou vols low-cost ? Choisissez l’option la plus économique.</li>
-    <li><strong>Utiliser les Cartes de Réductions</strong> : Réductions sur transports et activités avec cartes jeunes et étudiantes.</li>
-    <li><strong>Manger Local et Économique</strong> : Privilégiez marchés locaux et street-food pour limiter les frais.</li>
-  </ul>
-</section>
+  <v-container class="bons-plans-container">
+    <h2 class="bons-plans-title">Bons Plans Voyage : Voyage sans te ruiner !</h2>
+    <p class="bons-plans-subtitle">Découvre nos meilleurs conseils et astuces pour voyager malin !</p>
 
-<section>
-  <h2>🎓 Bons Plans Étudiants</h2>
-  <ul class="list-disc list-inside space-y-2">
-    <li><strong>Logements Abordables</strong> : Auberges de jeunesse, Couchsurfing ou échange de maisons.</li>
-    <li><strong>Transports</strong> : Réductions avec des cartes étudiantes internationales (ISIC).</li>
-    <li><strong>Volontariat et Voyages Solidaires</strong> : Plateformes comme Workaway ou WWOOF.</li>
-    <li><strong>Programmes d’Échange</strong> : Erasmus+, stages ou jobs étudiants à l’étranger.</li>
-  </ul>
-</section>
+    <!-- Section Sites Utiles -->
+    <h3 class="section-title">Les Sites Utiles</h3>
+    <p class="section-site">
+      Trouver les meilleurs bons plans, c'est essentiel pour voyager sans se ruiner ! Grâce à ces sites incontournables, compare les vols, réserve des hébergements au meilleur prix et découvre des activités géniales sans exploser ton budget.
+    </p>
 
-<section>
-  <h2>🌍 Destinations Petit Budget</h2>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div>
-      <h3 class="font-semibold">Europe</h3>
-      <ul class="list-disc list-inside">
-        <li><strong>Portugal</strong> : Lisbonne et Porto.</li>
-        <li><strong>Hongrie</strong> : Budapest.</li>
-        <li><strong>Pologne</strong> : Cracovie.</li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-semibold">Asie</h3>
-      <ul class="list-disc list-inside">
-        <li><strong>Vietnam</strong> : Street-food et hébergements abordables.</li>
-        <li><strong>Indonésie (Bali)</strong> : Plages et randonnées.</li>
-        <li><strong>Thaïlande</strong> : Bangkok ou Chiang Mai.</li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-semibold">Amérique Latine</h3>
-      <ul class="list-disc list-inside">
-        <li><strong>Pérou</strong> : Machu Picchu.</li>
-        <li><strong>Colombie</strong> : Cartagena et Medellín.</li>
-        <li><strong>Bolivie</strong> : Salar d’Uyuni.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <v-row class="bons-plans-sites" justify="space-between" no-gutters>
+      <v-col cols="12" md="4" v-for="(site, index) in sites" :key="index">
+        <v-card class="bons-plans-card" :class="site.class">
+          <div class="card-header"><h4>{{ site.emoji }} {{ site.nom }}</h4></div>
+          <div class="card-content">
+            <p>{{ site.description }}</p>
+            <BoutonLien :lien="site.lien" :texte="site.boutonTexte" couleur="default" />
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
 
-<section>
-  <h2>✈️ Applications et Outils pour Voyager Moins Cher</h2>
-  <ul class="list-disc list-inside space-y-2">
-    <li><strong>Skyscanner</strong> : Trouver les vols les moins chers.</li>
-    <li><strong>Rome2Rio</strong> : Comparer les options de transport.</li>
-    <li><strong>Hostelworld</strong> : Réserver des auberges de jeunesse.</li>
-    <li><strong>Omio</strong> : Comparer trains, bus et vols en Europe.</li>
-    <li><strong>Couchsurfing</strong> : Hébergement gratuit.</li>
-    <li><strong>Hopper</strong> : Prévoir le meilleur moment pour réserver un vol.</li>
-  </ul>
-</section>
+    <!-- 🛠️ Calculateur de Budget -->
+    <v-container class="bons-plans-calculateur">
+      <h3 class="section-title">Calculateur de Budget</h3>
+      <v-form @submit.prevent="calculerBudget">
+        <v-text-field v-for="(field, index) in budgetFields" :key="index"
+          :label="field.label"
+          v-model.number="field.model"
+          type="number"
+        />
+        <div class="bouton-container">
+          <v-btn @click="calculerBudget" color="white">Calculer</v-btn>
+        </div>
+        <p v-if="total !== null" class="calculateur-total">💰 Ton budget estimé : {{ total }} €</p>
+      </v-form>
+    </v-container>
 
-<section class="text-center bg-gray-100 p-4 rounded-lg shadow">
-  <h2 class="text-xl font-semibold mb-2">💬 Partagez Vos Bons Plans !</h2>
-  <p>
-    Vous avez une astuce secrète ou une destination à recommander ? Partagez-la avec notre communauté !
-    Ensemble, faisons du voyage un plaisir accessible à tous. 🌟
-  </p>
-</section>
+    <!-- Guides Ultimes -->
+    <h3 class="section-title">Nos Guides Ultimes</h3>
+    <v-row class="bons-plans-guide" justify="space-between" no-gutters>
+      <v-col cols="12" md="6" v-for="(guide, index) in guides" :key="index" class="guide-card">
+        <v-card class="guide-card-content" :style="{ backgroundImage: `url(${guide.image})` }">
+          <div class="guide-overlay">
+            <v-card-title class="guide-title">{{ guide.titre }}</v-card-title>
+            <v-card-text class="guide-text">
+              <ul>
+                <li v-for="(item, i) in guide.contenu" :key="i">- {{ item }}</li>
+              </ul>
+            </v-card-text>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-  <style scoped>
-h2 {
-    margin-top: 200px;
-    color :#fff,
-  }
-  h1 {
-    text-align: center;
-  }
-  div {
-    color:#fff; 
+<script>
+import { ref } from "vue";
+import BoutonLien from "../components/BoutonLien.vue";
 
+export default {
+  components: { BoutonLien },
+  setup() {
+    // Sites utiles
+    const sites = ref([
+      { emoji: "✈️", nom: "Skyscanner", description: "Compare les prix des vols et choisis les meilleures offres.", lien: "https://www.skyscanner.fr", boutonTexte: "Découvrir Skyscanner", class: "site-1" },
+      { emoji: "🏨", nom: "Booking.com", description: "Réserve des hôtels au meilleur prix avec une large gamme d’options.", lien: "https://www.booking.com", boutonTexte: "Explorer Booking", class: "site-2" },
+      { emoji: "🗙", nom: "TripAdvisor", description: "Découvre les meilleures activités à faire dans ta destination !", lien: "https://www.tripadvisor.fr", boutonTexte: "Voir TripAdvisor", class: "site-3" }
+    ]);
+
+    // Calculateur de budget
+    const jours = ref(null);
+    const prixLogementParJour = ref(null);
+    const prixTrajet = ref(null);
+    const budgetNourriture = ref(null);
+    const budgetActivites = ref(null);
+    const autresDepenses = ref(null);
+    const total = ref(null);
+
+    const budgetFields = ref([
+      { label: "Nombre de jours", model: jours },
+      { label: "Prix du logement par jour (€)", model: prixLogementParJour },
+      { label: "Prix du trajet aller/retour (€)", model: prixTrajet },
+      { label: "Budget nourriture par jour (€)", model: budgetNourriture },
+      { label: "Budget activités par jour (€)", model: budgetActivites },
+      { label: "Autres dépenses (€)", model: autresDepenses },
+    ]);
+
+    const getSafeValue = (value) => (value !== null && value !== "" ? Number(value) : 0);
+
+    const calculerBudget = () => {
+      total.value =
+        getSafeValue(jours.value) * (getSafeValue(prixLogementParJour.value) + getSafeValue(budgetNourriture.value) + getSafeValue(budgetActivites.value)) +
+        getSafeValue(prixTrajet.value) +
+        getSafeValue(autresDepenses.value);
+    };
+
+    // Guides de voyage
+    const guides = ref([
+      {
+        image: "/guide1.jpg",
+        titre: "Comment voyager gratuitement ou à petit prix ?",
+        contenu: [
+          "Utilise le Couchsurfing pour dormir chez l'habitant gratuitement.",
+          "Travaille dans une auberge en échange du logement.",
+          "Profite des erreurs tarifaires des compagnies aériennes.",
+          "Participe à des missions de volontariat à l’étranger."
+        ]
+      },
+      {
+        image: "/guide2.jpg",
+        titre: "Les meilleurs bons plans étudiants !",
+        contenu: [
+          "La carte étudiante te donne accès à des réductions sur les transports et musées.",
+          "Découvre les programmes d’échange internationaux.",
+          "Postule pour des bourses et financements pour les jeunes voyageurs.",
+          "Participe aux concours pour gagner des voyages."
+        ]
+      }
+    ]);
+
+    return { sites, guides, budgetFields, total, calculerBudget };
   }
-  </style>
+};
+</script>
+
+<style scoped>
+.bons-plans-title, .bons-plans-subtitle, .section-site {
+  text-align: center;
+  color: white;
+}
+
+.bons-plans-title { 
+  font-size: 3em; 
+  font-weight: bold; 
+  margin-top: 50px; }
+
+.bons-plans-subtitle { 
+  font-size: 1.2rem; 
+  margin-bottom: 40px; }
+
+.section-site { 
+  font-size: 1rem; 
+  margin-bottom: 40px; }
+
+.bons-plans-sites { 
+  display: flex; 
+  gap: 20px; 
+  flex-wrap: nowrap; }
+
+.section-title { 
+  text-align: left; 
+  font-size: 2em; 
+  color: white; 
+  margin-bottom: 20px; 
+  text-decoration: underline; }
+
+.bons-plans-card { 
+  padding: 30px; 
+  border-radius: 10px; 
+  border: 2px solid grey; color: white; }
+
+.site-1 { background-color: #2e4a62; }
+.site-2 { background-color: #3d543d; }
+.site-3 { background-color: #c2a87d; }
+
+.bons-plans-calculateur { 
+  background-color: #303030; 
+  padding: 20px; 
+  border-radius: 10px; 
+  color: white; }
+
+.bouton-container { 
+  display: flex; 
+  justify-content: center; 
+  margin-top: 10px; }
+
+.bons-plans-guide { 
+  display: flex; 
+  gap: 20px; 
+  flex-wrap: nowrap; }
+
+.guide-card-content {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.guide-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.guide-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  text-decoration: underline;
+  white-space:normal;
+}
+
+.guide-text {
+  font-size: 1.2rem;
+  line-height: 1.8; /* Espacement entre lignes */
+  flex-grow: 1; /* Permet au texte d'occuper toute la hauteur */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre verticalement le texte */
+}
+
+.guide-text ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.guide-text li {
+  margin-bottom: 15px; /* Espacement entre les lignes */
+}
+</style>

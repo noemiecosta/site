@@ -2,20 +2,19 @@
   <nav>
     <div class="nav-container">
       <!-- Nom du site -->
-      <h1 class="site-title">Site de Nono</h1>
+      <h1 class="site-title">Voyaj</h1>
 
       <ul>
         <li><router-link to="/">Accueil</router-link></li>
         <li class="dropdown" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
           <router-link to="/categories">Catégories</router-link>
           <ul v-if="showDropdown" class="dropdown-menu">
-            <li><router-link to="/categories/we-break">WE Break</router-link></li>
-            <li><router-link to="/categories/road-trip">RoadTrip</router-link></li>
-            <li><router-link to="/categories/insolite">Voyages insolites</router-link></li>
+            <li><router-link to="/categories/RoadTrip">RoadTrip</router-link></li>
+            <li><router-link to="/categories/Insolite">Voyages insolites</router-link></li>
           </ul>
         </li>
-        <li><router-link to="/destinations">Destinations</router-link></li>
-        <li><router-link to="/bon-plans">Bons Plans</router-link></li>
+        <li><router-link to="/Destinations">Destinations</router-link></li>
+        <li><router-link to="/BonPlans">Bons Plans</router-link></li>
       </ul>
     </div>
   </nav>
@@ -31,13 +30,13 @@ const showDropdown = ref(false);
 /* Style global de la barre de navigation */
 nav {
   width: 100%;
-  background-color: #314633; /* Couleur vert */
+  background-color:rgba(255, 255, 255, 0);
   position: fixed;
   top: 0;
   left: 0;
   padding: 5px 0;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  z-index: 1000;
 }
 
 .nav-container {
@@ -86,7 +85,7 @@ a:hover {
   position: absolute;
   top: 100%;
   left: 50%;
-  background-color: #314633;
+  background-color: rgba(255, 255, 255, 0);
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -102,6 +101,6 @@ a:hover {
 }
 
 .dropdown-menu li:hover {
-  background-color: #314633; /* Un peu plus foncé pour l'effet hover */
+  background-color: rgba(255, 255, 255, 0); /* Un peu plus foncé pour l'effet hover */
 }
 </style>
