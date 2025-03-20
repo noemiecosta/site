@@ -22,20 +22,7 @@
     </v-row>
 
     <!-- 🛠️ Calculateur de Budget -->
-    <v-container class="bons-plans-calculateur">
-      <h3 class="section-title">Calculateur de Budget</h3>
-      <v-form @submit.prevent="calculerBudget">
-        <v-text-field v-for="(field, index) in budgetFields" :key="index"
-          :label="field.label"
-          v-model.number="field.model"
-          type="number"
-        />
-        <div class="bouton-container">
-          <v-btn @click="calculerBudget" color="white">Calculer</v-btn>
-        </div>
-        <p v-if="total !== null" class="calculateur-total">💰 Ton budget estimé : {{ total }} €</p>
-      </v-form>
-    </v-container>
+    <CalculateurBudget />
 
     <!-- Guides Ultimes -->
     <h3 class="section-title">Nos Guides Ultimes</h3>
@@ -59,9 +46,10 @@
 <script>
 import { ref } from "vue";
 import BoutonLien from "../components/BoutonLien.vue";
+import CalculateurBudget from "../components/CalculateurBudget.vue";
 
 export default {
-  components: { BoutonLien },
+  components: { BoutonLien, CalculateurBudget },
   setup() {
     // Sites utiles
     const sites = ref([
@@ -69,33 +57,6 @@ export default {
       { emoji: "🏨", nom: "Booking.com", description: "Réserve des hôtels au meilleur prix avec une large gamme d’options.", lien: "https://www.booking.com", boutonTexte: "Explorer Booking", class: "site-2" },
       { emoji: "🗙", nom: "TripAdvisor", description: "Découvre les meilleures activités à faire dans ta destination !", lien: "https://www.tripadvisor.fr", boutonTexte: "Voir TripAdvisor", class: "site-3" }
     ]);
-
-    // Calculateur de budget
-    const jours = ref(null);
-    const prixLogementParJour = ref(null);
-    const prixTrajet = ref(null);
-    const budgetNourriture = ref(null);
-    const budgetActivites = ref(null);
-    const autresDepenses = ref(null);
-    const total = ref(null);
-
-    const budgetFields = ref([
-      { label: "Nombre de jours", model: jours },
-      { label: "Prix du logement par jour (€)", model: prixLogementParJour },
-      { label: "Prix du trajet aller/retour (€)", model: prixTrajet },
-      { label: "Budget nourriture par jour (€)", model: budgetNourriture },
-      { label: "Budget activités par jour (€)", model: budgetActivites },
-      { label: "Autres dépenses (€)", model: autresDepenses },
-    ]);
-
-    const getSafeValue = (value) => (value !== null && value !== "" ? Number(value) : 0);
-
-    const calculerBudget = () => {
-      total.value =
-        getSafeValue(jours.value) * (getSafeValue(prixLogementParJour.value) + getSafeValue(budgetNourriture.value) + getSafeValue(budgetActivites.value)) +
-        getSafeValue(prixTrajet.value) +
-        getSafeValue(autresDepenses.value);
-    };
 
     // Guides de voyage
     const guides = ref([
@@ -121,7 +82,7 @@ export default {
       }
     ]);
 
-    return { sites, guides, budgetFields, total, calculerBudget };
+    return { sites, guides };
   }
 };
 </script>
@@ -135,52 +96,49 @@ export default {
 .bons-plans-title { 
   font-size: 3em; 
   font-weight: bold; 
-  margin-top: 50px; }
+  margin-top: 50px; 
+}
 
 .bons-plans-subtitle { 
   font-size: 1.2rem; 
-  margin-bottom: 40px; }
+  margin-bottom: 40px; 
+}
 
 .section-site { 
   font-size: 1rem; 
-  margin-bottom: 40px; }
+  margin-bottom: 40px; 
+}
 
 .bons-plans-sites { 
   display: flex; 
   gap: 20px; 
-  flex-wrap: nowrap; }
+  flex-wrap: nowrap; 
+}
 
 .section-title { 
   text-align: left; 
   font-size: 2em; 
   color: white; 
   margin-bottom: 20px; 
-  text-decoration: underline; }
+  text-decoration: underline; 
+}
 
 .bons-plans-card { 
   padding: 30px; 
   border-radius: 10px; 
-  border: 2px solid grey; color: white; }
+  border: 2px solid grey; 
+  color: white; 
+}
 
 .site-1 { background-color: #2e4a62; }
 .site-2 { background-color: #3d543d; }
 .site-3 { background-color: #c2a87d; }
 
-.bons-plans-calculateur { 
-  background-color: #303030; 
-  padding: 20px; 
-  border-radius: 10px; 
-  color: white; }
-
-.bouton-container { 
-  display: flex; 
-  justify-content: center; 
-  margin-top: 10px; }
-
 .bons-plans-guide { 
   display: flex; 
   gap: 20px; 
-  flex-wrap: nowrap; }
+  flex-wrap: nowrap; 
+}
 
 .guide-card-content {
   height: 400px;
@@ -210,16 +168,16 @@ export default {
   text-align: center;
   padding: 10px;
   text-decoration: underline;
-  white-space:normal;
+  white-space: normal;
 }
 
 .guide-text {
   font-size: 1.2rem;
-  line-height: 1.8; /* Espacement entre lignes */
-  flex-grow: 1; /* Permet au texte d'occuper toute la hauteur */
+  line-height: 1.8;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centre verticalement le texte */
+  justify-content: center;
 }
 
 .guide-text ul {
@@ -229,6 +187,6 @@ export default {
 }
 
 .guide-text li {
-  margin-bottom: 15px; /* Espacement entre les lignes */
+  margin-bottom: 15px;
 }
 </style>

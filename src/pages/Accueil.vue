@@ -1,7 +1,7 @@
 <template> 
   <div class="Accueil">
     <v-parallax src="/image1.jpg">
-      <div>
+      <div class="overlay">
         <h1>Voyaj</h1>
         <h2>Trouve ta prochaine destination !</h2>
       </div>
@@ -24,45 +24,40 @@
     </div>
 
     <div class="intro-text right-block"> 
-    <h3>Ce que tu peux retrouver sur notre site :</h3>
-    <ul>
-      <li>Ta prochaine destination à prix mini</li>
-      <li>Des astuces pour économiser sur tes voyages</li>
-      <li>Des bons plans pour étudiants et petits budgets</li>
-    </ul>
+      <h3>Ce que tu peux retrouver sur notre site :</h3>
+      <ul>
+        <li>Ta prochaine destination à prix mini</li>
+        <li>Des astuces pour économiser sur tes voyages</li>
+        <li>Des bons plans pour étudiants et petits budgets</li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<!-- Phrase finale pleine largeur -->
-<p class="full-width-text">
-  <strong>Alors, prêt à partir à l’aventure ? Explore nos catégories et déniche le voyage de tes rêves sans exploser ton budget !</strong>
-</p>
+  <p class="full-width-text">
+    <strong>Alors, prêt à partir à l’aventure ? Explore nos catégories et déniche le voyage de tes rêves sans exploser ton budget !</strong>
+  </p>
 
   <h2>Découvrez nos destinations phares !</h2>
 
-  <!-- Carrousel d'images -->
   <div class="carousel-container">
-  <ImageCarousel />
-</div>
+    <ImageCarousel />
+  </div>
 
-<div class="categorie-container">
-  <div class= "categorie-text"> 
+  <div class="categorie-container">
+    <div class="categorie-text"> 
       <h2>Découvre nos catégories et trouve ton voyage idéal !</h2>
       <p>
         Tu rêves d’évasion, d’aventure ou d’en prendre plein la vue ? On a pensé à tout ! <br>
         Que tu sois un passionné d’expériences uniques, un adepte des escapades express ou un aventurier dans l’âme, nos catégories sont faites pour toi.
       </p>
-      <br>
-      <BlocksComponent/>
+      <BlocksComponent />
       <p>
-Alors, quelle sera ta prochaine destination ? Clique sur la catégorie qui te fait vibrer et commence à planifier ton prochain voyage ! ✈️ <br>
+        Alors, quelle sera ta prochaine destination ? Clique sur la catégorie qui te fait vibrer et commence à planifier ton prochain voyage ! ✈️
       </p>
     </div>
   </div>
 
-
-  <BlocBonPlan/>
-
+  <BlocBonPlan />
 </template>
 
 <script>
@@ -84,15 +79,15 @@ export default {
 /* Section de présentation */
 .categorie-container {
   display: flex;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
-  text-align: center; /* Centre le texte */
-  min-height: 50vh; /* Ajuste la hauteur pour bien le centrer */
-  padding: 10px; /* Ajoute de l’espace autour */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 50vh;
+  padding: 10px;
 }
 
 .categorie-text {
-  max-width: 1200px; /* Limite la largeur pour éviter un texte trop étalé */
+  max-width: 1200px;
   color: white;
   line-height: 2;
 }
@@ -107,7 +102,6 @@ export default {
 .intro-text {
   width: 53%;
   color: white;
-  justify-content: center;
   text-align: center;
 }
 
@@ -153,18 +147,29 @@ p {
 .intro-text.right-block {
   width: 42%;
   padding: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.5); /* Bordure blanche semi-transparente */
-  background-color: rgba(255, 255, 255, 0.1); /* Fond léger qui s’adapte */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
+
 .carousel-container {
-  margin-bottom: 40px; /* Ajuste la valeur selon l'espace que tu veux */
+  margin-bottom: 40px;
 }
 
 h3 {
-  font-size : 22px;
+  font-size: 22px;
   text-decoration: underline;
 }
 
+/* Effet Parallax */
+.overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+  text-align: center;
+}
 </style>

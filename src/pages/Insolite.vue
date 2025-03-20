@@ -1,12 +1,10 @@
 <template>
   <v-container>
-    <!-- Titre principal -->
     <h1 class="insolite-title">Destinations Insolites</h1>
     <p class="insolite-subtitle">
       À la recherche de l’insolite ? Découvre des destinations hors du commun et des expériences qui sortent de l’ordinaire !
     </p>
 
-    <!-- Liste des destinations insolites -->
     <CardInsolite />
   </v-container>
 </template>
@@ -26,7 +24,7 @@ export default {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  margin-top: 50px;
+  margin: 50px 0 40px;
   color: white; 
 }
 
@@ -36,5 +34,4 @@ export default {
   color: #c2a87d;
   margin-bottom: 40px;
 }
-
 </style>

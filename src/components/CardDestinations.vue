@@ -17,48 +17,43 @@
   </v-container>
 </template>
 
-<script>
+<script setup>
 import { ref, computed, onMounted } from "vue";
-import supabase from "../supabase"; // Importer Supabase
+import supabase from "../supabase";
 
-export default {
-  name: "CardDestinations",
-  props: {
-    filterType: String, // Peut être un continent ou "coupDeCoeur"
-  },
-  setup(props) {
-    const destinations = ref([]);
+const props = defineProps({
+  filterType: String, // Peut être un continent ou "coupDeCoeur"
+});
 
-    // Récupérer les données depuis Supabase
-    const fetchDestinations = async () => {
-      const { data, error } = await supabase.from("Destinations").select("*");
-      if (error) {
-        console.error("Erreur lors de la récupération des destinations :", error);
-      } else {
-        destinations.value = data;
-      }
-    };
+const destinations = ref([]);
 
-    // Filtrer les destinations selon filterType
-    const filteredDestinations = computed(() => {
-      if (props.filterType === "coupDeCoeur") {
-        return destinations.value.filter(dest => dest.coupDeCoeur === true);
-      } else {
-        return destinations.value.filter(dest => dest.Continent === props.filterType);
-      }
-    });
-
-    onMounted(fetchDestinations);
-
-    return { filteredDestinations };
+// Récupérer les données depuis Supabase
+const fetchDestinations = async () => {
+  try {
+    const { data, error } = await supabase.from("Destinations").select("*");
+    if (error) throw error;
+    destinations.value = data || [];
+  } catch (error) {
+    console.error("Erreur lors de la récupération des destinations :", error.message);
   }
 };
+
+// Filtrer les destinations selon filterType
+const filteredDestinations = computed(() => {
+  if (props.filterType === "coupDeCoeur") {
+    return destinations.value.filter(dest => dest.coupDeCoeur === true);
+  }
+  return destinations.value.filter(dest => dest.Continent === props.filterType);
+});
+
+onMounted(fetchDestinations);
 </script>
 
 <style scoped>
 .destination-card {
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .overlay {

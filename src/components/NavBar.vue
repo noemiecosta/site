@@ -6,7 +6,7 @@
 
       <ul>
         <li><router-link to="/">Accueil</router-link></li>
-        <li class="dropdown" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
+        <li class="dropdown" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
           <router-link to="/categories">Catégories</router-link>
           <ul v-if="showDropdown" class="dropdown-menu">
             <li><router-link to="/categories/RoadTrip">RoadTrip</router-link></li>
@@ -30,7 +30,7 @@ const showDropdown = ref(false);
 /* Style global de la barre de navigation */
 nav {
   width: 100%;
-  background-color:rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
   position: fixed;
   top: 0;
   left: 0;
@@ -85,7 +85,7 @@ a:hover {
   position: absolute;
   top: 100%;
   left: 50%;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(0, 0, 0, 0.8);
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -101,6 +101,6 @@ a:hover {
 }
 
 .dropdown-menu li:hover {
-  background-color: rgba(255, 255, 255, 0); /* Un peu plus foncé pour l'effet hover */
+  background-color: rgba(255, 255, 255, 0.1);
 }
 </style>

@@ -1,16 +1,13 @@
 <template>
   <v-container>
-    <!-- Titre principal -->
     <h1 class="destinations-title">Explore les Destinations de Rêve</h1>
     <p class="destinations-subtitle">
       Des villes vibrantes aux paysages sauvages, trouve l’escapade parfaite à travers le monde !
     </p>
 
-    <!-- Section Coups de Cœur -->
     <h2 class="section-title">💖 Nos Coups de Cœur</h2>
     <CardDestinations filterType="coupDeCoeur" />
 
-    <!-- Section par Continent -->
     <h2 class="section-title">🌍 Europe</h2>
     <CardDestinations filterType="Europe" />
 
@@ -43,8 +40,7 @@ export default {
   text-align: center;
   font-weight: bold;
   font-size: 3em;
-  margin-bottom: 0px;
-  margin-top: 50px;
+  margin: 50px 0 20px;
 }
 
 .destinations-subtitle {

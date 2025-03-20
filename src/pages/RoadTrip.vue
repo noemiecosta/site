@@ -2,10 +2,12 @@
   <v-container>
     <!-- Titre principal -->
     <h1 class="page-title">Prêt pour l'Aventure ?</h1>
-    <p class="page-subtitle">Enfile ton sac à dos et découvre les plus beaux itinéraires à travers le monde !</p>
+    <p class="page-subtitle">
+      Enfile ton sac à dos et découvre les plus beaux itinéraires à travers le monde !
+    </p>
 
     <!-- Liste des Destinations -->
-    <h2 class="section-title">🌍 Road Trips Incontournables</h2>
+    <h2 class="section-title"> Road Trips Incontournables</h2>
     <div class="destinations">
       <div
         v-for="destination in destinations"
@@ -20,45 +22,44 @@
     </div>
 
     <!-- Checklist Interactive -->
-    <h2 class="section-title">📝 Prépare ton Road Trip</h2>
+    <h2 class="section-title"> Prépare ton Road Trip</h2>
+    <p class="intro">
+      Avant de partir à l'aventure, assure-toi d'avoir tout préparé ! Coche les éléments nécessaires.
+    </p>
     <v-card class="checklist-card">
       <v-container>
         <v-row>
           <v-col v-for="(item, index) in checklist" :key="index" cols="12" sm="6">
-            <v-checkbox v-model="checklist[index].checked" :label="item.text" color="primary"></v-checkbox>
+            <v-checkbox
+              v-model="checklist[index].checked"
+              :label="item.text"
+              color="white"
+              hide-details
+              dense
+              class="checkbox-custom"
+            ></v-checkbox>
           </v-col>
         </v-row>
       </v-container>
     </v-card>
 
-    <!-- Mini-Quiz Road Trip -->
-    <h2 class="section-title">🔎 Quel Road Trip est fait pour toi ?</h2>
-    <v-card class="quiz-card">
-      <v-container>
-        <div v-for="(question, index) in quizQuestions" :key="index">
-          <p class="quiz-question">{{ question.text }}</p>
-          <v-radio-group v-model="userAnswers[index]" color="primary" column>
-            <v-radio
-              v-for="(option, i) in question.options"
-              :key="i"
-              :label="option"
-              :value="option"
-            ></v-radio>
-          </v-radio-group>
-        </div>
-        <v-btn @click="generateTrip" color="primary" class="quiz-btn">Lancer le quiz</v-btn>
-        <p v-if="suggestedTrip" class="quiz-result">✨ Ton road trip idéal : {{ suggestedTrip }}</p>
-      </v-container>
-    </v-card>
+    <!-- Quiz -->
+    <h2 class="section-title"> Quel Road Trip est fait pour toi ?</h2>
+    <p class="intro"> Réponds aux questions pour découvrir ta destination idéale !</p>
+    <QuizComponent />
   </v-container>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
 import supabase from "../supabase";
+import QuizComponent from "../components/QuizComponent.vue";
 
 export default {
   name: "RoadTrip",
+  components: {
+    QuizComponent,
+  },
   setup() {
     const destinations = ref([]);
     const checklist = ref([
@@ -70,25 +71,6 @@ export default {
       { text: "Trousse de secours", checked: false },
     ]);
 
-    const quizQuestions = ref([
-      {
-        text: "Quel type de paysage préfères-tu ?",
-        options: ["Désert", "Montagne", "Plage", "Forêt", "Ville"],
-      },
-      {
-        text: "Quel est ton moyen de transport favori ?",
-        options: ["Voiture", "Moto", "Camping-car", "Train", "Vélo"],
-      },
-      {
-        text: "Quelle ambiance recherches-tu ?",
-        options: ["Aventure extrême", "Détente", "Culture", "Road trip en solo", "Fête entre amis"],
-      },
-    ]);
-
-    const userAnswers = ref(["", "", ""]);
-    const suggestedTrip = ref("");
-
-    // Récupération des destinations depuis Supabase
     const fetchRoadTrips = async () => {
       const { data, error } = await supabase
         .from("Destinations")
@@ -102,37 +84,9 @@ export default {
       }
     };
 
-    const generateTrip = () => {
-      const answerCombination = userAnswers.value.join(" ");
-
-      if (answerCombination.includes("Désert")) {
-        suggestedTrip.value = "USA - Route 66";
-      } else if (answerCombination.includes("Montagne")) {
-        suggestedTrip.value = "Road Trip dans les Alpes";
-      } else if (answerCombination.includes("Plage")) {
-        suggestedTrip.value = "Australie - Great Ocean Road";
-      } else if (answerCombination.includes("Forêt")) {
-        suggestedTrip.value = "Canada - Traversée du Québec";
-      } else if (answerCombination.includes("Ville")) {
-        suggestedTrip.value = "Road Trip à travers l'Europe";
-      } else if (answerCombination.includes("Moto")) {
-        suggestedTrip.value = "Vietnam - Ho Chi Minh Trail";
-      } else if (answerCombination.includes("Camping-car")) {
-        suggestedTrip.value = "Nouvelle-Zélande en van";
-      } else if (answerCombination.includes("Train")) {
-        suggestedTrip.value = "Transsibérien à travers la Russie";
-      } else if (answerCombination.includes("Vélo")) {
-        suggestedTrip.value = "Pays-Bas en vélo";
-      } else if (answerCombination.includes("Fête entre amis")) {
-        suggestedTrip.value = "Ibiza et la côte espagnole";
-      } else {
-        suggestedTrip.value = "Europe en train";
-      }
-    };
-
     onMounted(fetchRoadTrips);
 
-    return { destinations, checklist, quizQuestions, userAnswers, suggestedTrip, generateTrip };
+    return { destinations, checklist };
   },
 };
 </script>
@@ -140,7 +94,7 @@ export default {
 <style scoped>
 .page-title {
   text-align: center;
-  font-size: 3em;
+  font-size: 3.5em;
   font-weight: bold;
   margin-top: 50px;
   color: white;
@@ -148,16 +102,25 @@ export default {
 
 .page-subtitle {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #c2a87d;
   margin-bottom: 40px;
 }
 
 .section-title {
-  margin-top: 40px;
-  font-size: 1.8rem;
+  margin-top: 50px;
+  font-size: 2rem;
   font-weight: bold;
   color: white;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.intro {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #c2a87d;
+  text-align: center;
 }
 
 .destinations {
@@ -171,12 +134,12 @@ export default {
   position: relative;
   background-size: cover;
   background-position: center;
-  height: 200px;
-  border-radius: 10px;
+  height: 220px;
+  border-radius: 15px;
   display: flex;
   align-items: flex-end;
   color: white;
-  padding: 15px;
+  padding: 20px;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -186,33 +149,23 @@ export default {
 
 .destination-content {
   background: rgba(0, 0, 0, 0.6);
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 8px;
   width: 100%;
   text-align: center;
 }
 
-.checklist-card, .quiz-card {
+.checklist-card {
   background: #303030;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 25px;
+  border-radius: 12px;
   color: white;
   margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-.quiz-question {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.quiz-btn {
-  margin-top: 15px;
-}
-
-.quiz-result {
-  margin-top: 15px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #c2a87d;
+.checkbox-custom input[type="checkbox"]:checked {
+  background-color: white !important;
 }
 </style>

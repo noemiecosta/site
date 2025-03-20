@@ -2,7 +2,7 @@
   <footer>
     <div class="footer-contenant">
       <p>&copy; {{ currentYear }} - Tous droits réservés</p>
-      <p>Pour nous contacter, envoyez-nous un message à <a href="mailto:contact@voyaj.com">contact@sitedenono.com</a></p>
+      <p>Pour nous contacter, envoyez-nous un message à <a href="mailto:contact@sitedenono.com">contact@sitedenono.com</a></p>
     </div>
   </footer>
 </template>
@@ -18,13 +18,19 @@ footer {
   color: white;
   text-align: center;
   padding: 20px;
-  width: 100vw;
+  width: 100%;
+}
+
+.footer-contenant {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 a {
   color: #f1f1f1;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }

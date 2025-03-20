@@ -41,7 +41,6 @@ const goToPage = (page) => {
   width: 100vw;
 }
 
-/* Ligne avec espacement entre les blocs */
 .blocks-row {
   display: flex;
   justify-content: center;

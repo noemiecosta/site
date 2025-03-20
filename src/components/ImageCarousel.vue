@@ -14,7 +14,7 @@
         >
           <div class="overlay">
             <h2>L'Amérique ?</h2>
-            <p>Parfait pour vivre le rêve amériquain </p>
+            <p>Parfait pour vivre le rêve américain</p>
           </div>
         </v-carousel-item>
 
@@ -24,8 +24,8 @@
           @click="goToDestinations"
         >
           <div class="overlay">
-            <h2>L'Océanie ? </h2>
-            <p>Un havre de paix avec ses plages paradisiaques, ses récifs coralliens et sa nature préservée</p>
+            <h2>L'Océanie ?</h2>
+            <p>Un havre de paix avec ses plages paradisiaques, ses récifs coralliens et sa nature préservée.</p>
           </div>
         </v-carousel-item>
 
@@ -36,7 +36,7 @@
         >
           <div class="overlay">
             <h2>L'Europe ?</h2>
-            <p>Il vous reste encore pleins d'endroits emblématiques à decouvrir </p>
+            <p>Il vous reste encore plein d'endroits emblématiques à découvrir.</p>
           </div>
         </v-carousel-item>
 
@@ -47,7 +47,7 @@
         >
           <div class="overlay">
             <h2>L'Afrique ?</h2>
-            <p>Pour découvrir des cultures uniques</p>
+            <p>Pour découvrir des cultures uniques.</p>
           </div>
         </v-carousel-item>
 
@@ -58,7 +58,7 @@
         >
           <div class="overlay">
             <h2>L'Asie ?</h2>
-            <p>Pour vous en prendre pleins les yeux </p>
+            <p>Pour vous en mettre plein les yeux.</p>
           </div>
         </v-carousel-item>
       </v-carousel>
@@ -66,16 +66,14 @@
   </v-app>
 </template>  
 
-<script>
-export default {
-  methods: {
-    goToDestinations() {
-      this.$router.push("/Destinations");
-    }
-  }
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const goToDestinations = () => {
+  router.push("/Destinations");
 };
 </script>
-
 
 <style scoped>
 .v-carousel {
@@ -84,15 +82,15 @@ export default {
   max-width: 100%;
   overflow: hidden;
 }
+
 /* Effet au survol */
 .v-carousel-item {
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-  padding : 0px; 
 }
 
 .v-carousel-item:hover {
-  transform: scale(1.05); /* Agrandit légèrement */
+  transform: scale(1.05);
 }
 
 /* Effet de surlignage du texte */
@@ -100,18 +98,16 @@ export default {
   position: absolute;
   bottom: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 50%);
   text-align: center;
   color: white;
-  padding : 0px;
   border-radius: 5px;
   transition: background 0.3s ease-in-out;
-  align-items: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .v-carousel-item:hover .overlay {
-  background: rgba(0, 0, 0, 0.8); /* Fait ressortir au survol */
+  background: rgba(0, 0, 0, 0.8);
 }
 </style>
-
-

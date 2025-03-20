@@ -48,10 +48,7 @@
       </v-row>
     </v-container>
   </template>
-  
-  <script setup>
-  </script>
-  
+
   <style scoped>
   .bons-plans-container {
     text-align: center;
@@ -63,8 +60,12 @@
     font-weight: bold;
     color: white;
     margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Goldman';
   }
   
+
+
   .bons-plans-subtitle {
     font-size: 18px;
     color: white;
